@@ -139,11 +139,11 @@ The `valkey` volume is left out. A restored instance comes up with everyone logg
 3. Webhooks reach public addresses only. HeyForm itself rejects private, loopback and CGNAT addresses (including Tailscale's) with "Private network URLs are not allowed", so it can't post to other services on this server or the LAN. A `.local` name fails earlier, with "Internal server error": the container can't resolve mDNS names.
 4. Webhooks are self-hosted HeyForm's only integration. The Google Sheets, Slack, Notion and other integrations in HeyForm's help center are part of its hosted service.
 5. Workspace invitations are sent only by email, and the dashboard shows no invite link to copy, so collaboration needs SMTP. In-app sign-ups need SMTP too, for the verification code.
-6. The template gallery is empty on a self-hosted instance; reuse a form with **Duplicate**.
+6. **Select a template** shows the category list with no templates in it: HeyForm's open-source server returns none, as the gallery belongs to its hosted service. **Import from JSON** on that screen always fails with "Failed to import form. Please check the JSON format.", because the web app calls an import function that the release doesn't contain, and nothing exports a form as JSON. **Duplicate** is the way to reuse a form.
 7. Stripe can confirm payments only when the primary URL is a public HTTPS address. Without the webhook, payments complete but submissions don't record a receipt.
 8. SMTP servers must present a certificate the container trusts; a self-signed SMTP certificate is rejected.
 9. Upload size is HeyForm's default (10 MB per file) and isn't configurable.
-10. Outside requests HeyForm makes even with nothing configured: the server asks `api.github.com` for HeyForm's release list (the dashboard's "what's new"), the dashboard loads a flag-icon stylesheet from cdnjs.cloudflare.com, and accounts created through the sign-up page get a Gravatar image URL.
+10. Outside requests HeyForm makes even with nothing configured: the server asks `api.github.com` for HeyForm's release list (the dashboard's "what's new"), the dashboard loads a flag-icon stylesheet from cdnjs.cloudflare.com, accounts created through the sign-up page get a Gravatar image URL, and every new form's first question comes with a photo from `images.unsplash.com`, which respondents' browsers load until it is removed or replaced.
 
 ---
 
