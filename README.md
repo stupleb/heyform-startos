@@ -144,6 +144,7 @@ The `valkey` volume is left out. A restored instance comes up with everyone logg
 8. SMTP servers must present a certificate the container trusts; a self-signed SMTP certificate is rejected.
 9. Upload size is HeyForm's default (10 MB per file) and isn't configurable.
 10. Outside requests HeyForm makes even with nothing configured: the server asks `api.github.com` for HeyForm's release list (the dashboard's "what's new"), the dashboard loads a flag-icon stylesheet from cdnjs.cloudflare.com, accounts created through the sign-up page get a Gravatar image URL, and every new form's first question comes with a photo from `images.unsplash.com`, which respondents' browsers load until it is removed or replaced.
+11. The image picker's **Unsplash** tab finds nothing: HeyForm searches Unsplash only with an Unsplash access key (`UNSPLASH_CLIENT_ID`), which the package doesn't set, and HeyForm has no setting to hide the tab. Uploading an image works.
 
 ---
 

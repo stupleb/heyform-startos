@@ -66,3 +66,4 @@ Stripe has to reach HeyForm to confirm each payment, so this needs a public doma
 - Webhooks are the only integration self-hosted HeyForm offers. The Google Sheets, Slack and other integrations in HeyForm's help center belong to its hosted service.
 - **Select a template** has no templates in it, and **Import from JSON** always fails: self-hosted HeyForm has neither. To reuse a form, use **Duplicate**.
 - Every new form starts with a photo from Unsplash on its first question. Your respondents' browsers load it from Unsplash until you remove or replace it.
+- The **Unsplash** tab in the image picker always shows "No results found": it needs an Unsplash developer key, which this package doesn't use. Upload your own image instead.
