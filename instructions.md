@@ -64,3 +64,5 @@ Stripe has to reach HeyForm to confirm each payment, so this needs a public doma
 - A Raspberry Pi 4 cannot run HeyForm: its database needs a newer processor.
 - Webhooks can only reach public internet addresses. HeyForm refuses to send them to addresses on your local network, including other services on this server.
 - Webhooks are the only integration self-hosted HeyForm offers. The Google Sheets, Slack and other integrations in HeyForm's help center belong to its hosted service.
+- **Select a template** has no templates in it, and **Import from JSON** always fails: self-hosted HeyForm has neither. To reuse a form, use **Duplicate**.
+- Every new form starts with a photo from Unsplash on its first question. Your respondents' browsers load it from Unsplash until you remove or replace it.
