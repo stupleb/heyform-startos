@@ -38,12 +38,12 @@ const dict = {
   'From Stripe Dashboard → Developers → API keys. Starts with pk_.': 34,
   'From the same page. Starts with sk_.': 35,
   'Connect Client ID': 36,
-  'From Stripe Dashboard → Settings → Connect → Onboarding options → OAuth, after enabling OAuth for Standard accounts. Starts with ca_.': 37,
+  'From Stripe Dashboard → Settings → Connect → Onboarding options → OAuth, after setting up Connect and enabling OAuth for Standard accounts. Stripe no longer recommends OAuth for new platforms, and a new account may not be offered it. Starts with ca_.': 37,
   'Webhook Signing Secret': 38,
   'From the webhook endpoint you add in Stripe for HeyForm. Starts with whsec_. Until it is set, payments go through but submissions do not record their receipt.': 39,
   'Configure Stripe': 40,
-  'Add payment fields to forms with Stripe Connect. Stripe must reach HeyForm, so the primary URL has to be a public HTTPS address. In Stripe, set the OAuth redirect to ${redirectUrl} and add a webhook endpoint ${webhookUrl} for payment_intent.succeeded on connected accounts. HeyForm restarts to apply it.': 41,
-  'Add payment fields to forms with Stripe Connect. Set a primary URL first: the addresses to enter in Stripe are built from it. HeyForm restarts to apply it.': 42,
+  'Add card payment fields to forms. Needs a Stripe Connect platform with OAuth and a public HTTPS primary URL. HeyForm restarts to apply it.': 41,
+  'Set a primary URL to see the address to enter in Stripe.': 42,
   Email: 43,
   'The email address the person signs in with. If no account uses it yet, one is created.': 44,
   Name: 45,
@@ -74,6 +74,8 @@ const dict = {
   'Anyone who can reach your HeyForm address will be able to create an account until you disable sign-ups again. HeyForm emails each new account a code to confirm its address, so set up SMTP first.': 70,
   'Create your HeyForm account. Public sign-up is off, so this is how the first account is made.': 71,
   'The address HeyForm works at is no longer available, so signing in and share links fail. Choose a new primary URL.': 72,
+  "Redirect URI to put first in Stripe's OAuth settings: ${url}": 73,
+  'Webhook endpoint to add in Stripe, for payment_intent.succeeded events on connected accounts: ${url}': 74,
 } as const
 
 /**
