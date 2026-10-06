@@ -46,12 +46,13 @@ If someone forgets their password, run **Create or Reset Account** with their em
 
 ### Card payments with Stripe
 
-Stripe has to reach HeyForm to confirm each payment, so this needs a public domain as the primary URL.
+HeyForm takes card payments through Stripe Connect: your Stripe account acts as a platform, and each form links a Stripe account to it. HeyForm links accounts with OAuth for Standard accounts, which Stripe no longer recommends for new platforms, so a new Stripe account may not be offered it. Stripe also has to reach HeyForm to confirm each payment, so this needs a public domain as the primary URL.
 
-1. In your Stripe dashboard, under **Settings → Connect → Onboarding options → OAuth**, turn on OAuth for Standard accounts and add the redirect URI that **Configure Stripe** lists in its description.
-2. Under **Developers → Webhooks**, add an endpoint with the webhook URL from the same description, listening to `payment_intent.succeeded` on connected accounts. Copy its signing secret.
-3. Run **Configure Stripe**, choose **Enabled** and paste your keys, the Connect client ID and the signing secret.
-4. In HeyForm, add a payment field to a form and connect your Stripe account from the form editor.
+1. Run **Configure Stripe** and choose **Enabled**. The two addresses to enter in Stripe are shown under **Connect Client ID** and **Webhook Signing Secret**.
+2. In your Stripe dashboard, set up **Connect**. Then under **Settings → Connect → Onboarding options → OAuth**, turn on OAuth for Standard accounts, put the redirect URI first in the list, and copy the client ID.
+3. Under **Developers → Webhooks**, add an endpoint with the webhook address, listening to `payment_intent.succeeded` on connected accounts. Copy its signing secret.
+4. Back in **Configure Stripe**, paste your API keys, the client ID and the signing secret, then select **Submit**.
+5. In HeyForm, add a payment field to a form and, in the form editor, connect the Stripe account that should receive its payments. That account must already be able to take payments, or HeyForm shows "Something went wrong, please try again."
 
 [HeyForm's Stripe guide](https://docs.heyform.net/open-source/configuration/stripe) has the same Stripe steps; the keys go into **Configure Stripe** rather than the environment variables it mentions.
 

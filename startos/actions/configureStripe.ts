@@ -4,6 +4,13 @@ import { sdk } from '../sdk'
 
 const { InputSpec, Value, Variants } = sdk
 
+const stripeAddress = async (path: string) => {
+  const primaryUrl = await storeJson
+    .read((s) => s.primaryUrl.replace(/\/+$/, ''))
+    .once()
+  return primaryUrl && primaryUrl + path
+}
+
 const inputSpec = InputSpec.of({
   stripe: Value.union({
     name: i18n('Stripe Payments'),
@@ -31,22 +38,46 @@ const inputSpec = InputSpec.of({
             default: null,
             masked: true,
           }),
-          connectClientId: Value.text({
-            name: i18n('Connect Client ID'),
-            description: i18n(
-              'From Stripe Dashboard → Settings → Connect → Onboarding options → OAuth, after enabling OAuth for Standard accounts. Starts with ca_.',
-            ),
-            required: true,
-            default: null,
+          connectClientId: Value.dynamicText(async () => {
+            const url = await stripeAddress('/connect/stripe/callback')
+            return {
+              name: i18n('Connect Client ID'),
+              description: i18n(
+                'From Stripe Dashboard → Settings → Connect → Onboarding options → OAuth, after setting up Connect and enabling OAuth for Standard accounts. Stripe no longer recommends OAuth for new platforms, and a new account may not be offered it. Starts with ca_.',
+              ),
+              footnote: url
+                ? i18n(
+                    "Redirect URI to put first in Stripe's OAuth settings: ${url}",
+                    {
+                      url,
+                    },
+                  )
+                : i18n(
+                    'Set a primary URL to see the address to enter in Stripe.',
+                  ),
+              required: true,
+              default: null,
+            }
           }),
-          webhookSecret: Value.text({
-            name: i18n('Webhook Signing Secret'),
-            description: i18n(
-              'From the webhook endpoint you add in Stripe for HeyForm. Starts with whsec_. Until it is set, payments go through but submissions do not record their receipt.',
-            ),
-            required: false,
-            default: null,
-            masked: true,
+          webhookSecret: Value.dynamicText(async () => {
+            const url = await stripeAddress('/payment/intent/webhook')
+            return {
+              name: i18n('Webhook Signing Secret'),
+              description: i18n(
+                'From the webhook endpoint you add in Stripe for HeyForm. Starts with whsec_. Until it is set, payments go through but submissions do not record their receipt.',
+              ),
+              footnote: url
+                ? i18n(
+                    'Webhook endpoint to add in Stripe, for payment_intent.succeeded events on connected accounts: ${url}',
+                    { url },
+                  )
+                : i18n(
+                    'Set a primary URL to see the address to enter in Stripe.',
+                  ),
+              required: false,
+              default: null,
+              masked: true,
+            }
           }),
         }),
       },
@@ -57,30 +88,16 @@ const inputSpec = InputSpec.of({
 export const configureStripe = sdk.Action.withInput(
   'configure-stripe',
 
-  async ({ effects }) => {
-    const primaryUrl = (
-      await storeJson.read((s) => s.primaryUrl).const(effects)
-    )?.replace(/\/+$/, '')
-
-    return {
-      name: i18n('Configure Stripe'),
-      description: primaryUrl
-        ? i18n(
-            'Add payment fields to forms with Stripe Connect. Stripe must reach HeyForm, so the primary URL has to be a public HTTPS address. In Stripe, set the OAuth redirect to ${redirectUrl} and add a webhook endpoint ${webhookUrl} for payment_intent.succeeded on connected accounts. HeyForm restarts to apply it.',
-            {
-              redirectUrl: `${primaryUrl}/connect/stripe/callback`,
-              webhookUrl: `${primaryUrl}/payment/intent/webhook`,
-            },
-          )
-        : i18n(
-            'Add payment fields to forms with Stripe Connect. Set a primary URL first: the addresses to enter in Stripe are built from it. HeyForm restarts to apply it.',
-          ),
-      warning: null,
-      allowedStatuses: 'any',
-      group: i18n('Integrations'),
-      visibility: 'enabled',
-    }
-  },
+  async ({ effects }) => ({
+    name: i18n('Configure Stripe'),
+    description: i18n(
+      'Add card payment fields to forms. Needs a Stripe Connect platform with OAuth and a public HTTPS primary URL. HeyForm restarts to apply it.',
+    ),
+    warning: null,
+    allowedStatuses: 'any',
+    group: i18n('Integrations'),
+    visibility: 'enabled',
+  }),
 
   inputSpec,
 
