@@ -65,7 +65,7 @@ One model, `store.json` on the `startos` volume. HeyForm has no configuration fi
 `store.json` holds:
 
 - `sessionKey`, `formEncryptionKey` — generated at install, never rotated. They become `SESSION_KEY` (encrypts login cookies) and `FORM_ENCRYPTION_KEY` (encrypts the tokens of forms being filled in).
-- `primaryUrl` — `APP_HOMEPAGE_URL`. Seeded from the interface's `.local` HTTPS address the first time one exists; afterwards changed only by **Set Primary URL**.
+- `primaryUrl` — the address chosen with **Set Primary URL**, empty until then. `APP_HOMEPAGE_URL` is this URL while its hostname is one of the interface's addresses, and otherwise the preferred address: a public domain over HTTPS, else the `.local` address.
 - `signups` → `APP_DISABLE_REGISTRATION` (inverted); `googleFonts` → `ENABLE_GOOGLE_FONTS`. Both default off.
 - `smtp` → `SMTP_HOST`, `SMTP_PORT`, `SMTP_FROM`, `SMTP_USER`, `SMTP_PASSWORD`, `SMTP_SECURE`, and `SMTP_IGNORE_CERT=true`. Upstream passes that last value straight to Node's `rejectUnauthorized`, so `true` is what turns certificate checking on.
 - `ai` → `OPENAI_BASE_URL`, `OPENAI_API_KEY` (`none` when left empty, since HeyForm refuses an empty key), `OPENAI_GPT_MODEL`.
@@ -85,11 +85,11 @@ None.
 
 One interface, `ui` (type `ui`), on port 9157 over HTTP; StartOS adds TLS and is asked for 9157 as the HTTPS port as well, so the HTTPS addresses keep the same port through a reinstall or a restore. It serves the dashboard, the public form pages (`/form/<id>`), the GraphQL API (`/graphql`), uploads (`/static/upload/`) and `/health/ready`.
 
-Signing in works at one address only, the primary URL. HeyForm's session cookies carry `Domain=<primary URL host>; Secure`, so a browser drops them on every other address and signing in there loops back to the login page. Share links and upload links are built from the same URL. Filling in a form needs no login, so respondents can use any of the interface's addresses. The **Set Primary URL** list offers only the interface's HTTPS addresses and onion addresses, since a `Secure` cookie can't be set over plain HTTP outside Tor Browser.
+Signing in works at one address only, the primary URL. HeyForm's session cookies carry `Domain=<primary URL host>; Secure`, so a browser drops them on every other address and signing in there loops back to the login page. Share links and upload links are built from the same URL. Filling in a form needs no login, so respondents can use any of the interface's addresses. The **Set Primary URL** list offers only the interface's HTTPS addresses and onion addresses, since a `Secure` cookie can't be set over plain HTTP outside Tor Browser. **Open UI** opens the address in `APP_HOMEPAGE_URL`.
 
 ## Installation and First-Run Flow
 
-On install the package generates both secrets and leaves public sign-up off. The first init that sees an HTTPS `.local` address stores it as the primary URL. HeyForm starts without any account and raises an **important** task pointing at **Create or Reset Account**; the service runs normally while the task is open.
+On install the package generates both secrets and leaves public sign-up off. HeyForm starts at the preferred address (see [File Models](#file-models)) without any account, and raises two **important** tasks, **Create or Reset Account** and **Set Primary URL**; the service runs normally while they are open.
 
 Accounts made by the package are created through HeyForm's own user schema and password hash, and are marked email-verified. That flag matters: the dashboard sends any unverified account to a screen that waits for an emailed code, whatever `VERIFY_USER_EMAIL` says, so a package-made account could never get past it without SMTP. HeyForm has no administrator role; the first person to sign in creates a workspace like anyone else.
 
@@ -118,7 +118,7 @@ No action is hidden.
 Two tasks, both **important**: neither stops HeyForm.
 
 - **Create or Reset Account** — raised at every init while `accountCreated` is false. Cleared by the first successful run of the action and never raised again, even if every account is later deleted. An account created through the sign-up page does not clear it.
-- **Set Primary URL** — raised when the stored primary URL is no longer among the interface's addresses (a domain removed, an address disabled). It clears itself when the address comes back, or when a new primary URL is chosen. While it is open, sign-in and share links are broken for the reason in [Network Access and Interfaces](#network-access-and-interfaces).
+- **Set Primary URL** — raised while no primary URL has been chosen, or while the stored one's hostname is not among the interface's addresses (a domain removed, an address disabled), pre-filled with the preferred address. It clears itself when a primary URL is chosen or the stored address comes back. Meanwhile HeyForm runs at the preferred address, so sign-in and new links use that one.
 
 ## Health Checks
 
@@ -134,7 +134,7 @@ The `valkey` volume is left out. A restored instance comes up with everyone logg
 
 ## Limitations and Differences
 
-1. Signing in works at the primary URL only (see [Network Access and Interfaces](#network-access-and-interfaces)). Images and files uploaded under an earlier primary URL keep that address.
+1. Signing in works at the primary URL only (see [Network Access and Interfaces](#network-access-and-interfaces)). Images and files keep the address HeyForm used when they were uploaded: an earlier primary URL, or the preferred address while the chosen one was gone.
 2. A Raspberry Pi 4 can't run the package: the MongoDB image needs ARMv8.2-A.
 3. Webhooks reach public addresses only. HeyForm itself rejects private, loopback and CGNAT addresses (including Tailscale's) with "Private network URLs are not allowed", so it can't post to other services on this server or the LAN. A `.local` name fails earlier, with "Internal server error": the container can't resolve mDNS names.
 4. Webhooks are self-hosted HeyForm's only integration. The Google Sheets, Slack, Notion and other integrations in HeyForm's help center are part of its hosted service.

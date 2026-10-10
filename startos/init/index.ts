@@ -1,22 +1,22 @@
 import { sdk } from '../sdk'
-import { setDependencies } from '../dependencies'
+import { dependencies } from '../dependencies'
 import { setInterfaces } from '../interfaces'
 import { versionGraph } from '../versions'
 import { actions } from '../actions'
 import { restoreInit } from '../backups'
 import { seedFiles } from './seedFiles'
 import { watchAccount } from './watchAccount'
-import { watchPrimaryUrl } from './watchPrimaryUrl'
+import { primaryUrlTask } from './primaryUrlTask'
 
 export const init = sdk.setupInit(
   restoreInit,
   versionGraph,
   seedFiles,
   setInterfaces,
-  setDependencies,
   actions,
   watchAccount,
-  watchPrimaryUrl,
+  primaryUrlTask,
+  dependencies,
 )
 
 export const uninit = sdk.setupUninit(versionGraph)

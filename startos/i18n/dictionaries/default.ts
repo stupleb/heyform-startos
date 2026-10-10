@@ -73,7 +73,7 @@ const dict = {
   'Sign-ups are disabled: new accounts are made with Create or Reset Account, or by people you invite to a workspace. Run this action to let anyone sign up from the HeyForm login page. HeyForm restarts to apply it.': 69,
   'Anyone who can reach your HeyForm address will be able to create an account until you disable sign-ups again. HeyForm emails each new account a code to confirm its address, so set up SMTP first.': 70,
   'Create your HeyForm account. Public sign-up is off, so this is how the first account is made.': 71,
-  'The address HeyForm works at is no longer available, so signing in and share links fail. Choose a new primary URL.': 72,
+  'Choose the address HeyForm works at. Signing in only works there, and share links and uploaded files use it.': 72,
   "Redirect URI to put first in Stripe's OAuth settings: ${url}": 73,
   'Webhook endpoint to add in Stripe, for payment_intent.succeeded events on connected accounts: ${url}': 74,
 } as const

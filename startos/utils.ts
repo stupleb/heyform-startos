@@ -16,21 +16,6 @@ export const mongoUri = `mongodb://127.0.0.1:${mongoPort}/heyform`
 export const getRandomString = (len: number) =>
   utils.getDefaultString({ charset: 'a-z,A-Z,0-9', len })
 
-// HeyForm's session cookie is Secure, so only HTTPS addresses (and onions, which Tor Browser treats as secure) can hold a login.
-export const uiUrls = (effects: T.Effects) =>
-  sdk.host.getOwn(effects, uiHostId, (host) => {
-    const ui = Object.values(host?.bindings ?? {})
-      .flatMap((b) => Object.values(b.interfaces))
-      .find((i) => i.id === uiInterfaceId)
-    const usable = (url: string) =>
-      url.startsWith('https://') || new URL(url).hostname.endsWith('.onion')
-    const all = (ui?.addressInfo.nonLocal.format() ?? []).filter(usable)
-    const mdns = (
-      ui?.addressInfo.nonLocal.filter({ kind: 'mdns' }).format() ?? []
-    ).filter(usable)
-    return { all, preferred: mdns[0] ?? all[0] }
-  })
-
 // Writes through HeyForm's own user schema and password hash, the same way its sign-up does.
 const accountScript = `
 const r = require('module').createRequire('${serverDir}/package.json')
@@ -67,19 +52,16 @@ export async function createOrResetUser(
     null,
     'manage-account',
     async (sub) => {
-      const res = await sub.exec(
-        ['node', '-e', accountScript],
-        {
-          cwd: serverDir,
-          env: {
-            MONGO_URI: mongoUri,
-            HF_EMAIL: user.email,
-            HF_NAME: user.name,
-            HF_PASSWORD: user.password,
-          },
+      const res = await sub.exec(['node', '-e', accountScript], {
+        cwd: serverDir,
+        env: {
+          MONGO_URI: mongoUri,
+          HF_EMAIL: user.email,
+          HF_NAME: user.name,
+          HF_PASSWORD: user.password,
         },
-        60_000,
-      )
+        timeout: 60_000,
+      })
       const out = res.stdout.toString().trim()
       if (res.exitCode !== 0 || (out !== 'created' && out !== 'reset')) {
         throw new Error(
