@@ -1,6 +1,7 @@
 import { T } from '@start9labs/start-sdk'
 import { storeJson } from './fileModels/store.json'
 import { i18n } from './i18n'
+import { primaryUrl } from './primaryUrl'
 import { sdk } from './sdk'
 import {
   mongoPort,
@@ -27,7 +28,6 @@ export const main = sdk.setupMain(async ({ effects }) => {
     .read((s) => ({
       sessionKey: s.sessionKey,
       formEncryptionKey: s.formEncryptionKey,
-      primaryUrl: s.primaryUrl,
       signups: s.signups,
       googleFonts: s.googleFonts,
       smtp: s.smtp,
@@ -94,8 +94,7 @@ export const main = sdk.setupMain(async ({ effects }) => {
   )
 
   // Lets HeyForm reach HTTPS addresses on this server, such as an AI service, whose certificates chain to the StartOS root CA.
-  const chain = await sdk.getSslCertificate(effects, ['127.0.0.1']).once()
-  await heyformSub.writeFile(rootCaPath, chain[chain.length - 1])
+  await heyformSub.writeFile(rootCaPath, await sdk.getRootCa(effects))
 
   const env: Record<string, string> = {
     SESSION_KEY: store.sessionKey,
@@ -108,8 +107,11 @@ export const main = sdk.setupMain(async ({ effects }) => {
     ENABLE_GOOGLE_FONTS: String(store.googleFonts),
     NODE_EXTRA_CA_CERTS: rootCaPath,
   }
-  const primaryUrl = store.primaryUrl.replace(/\/+$/, '')
-  if (primaryUrl) env.APP_HOMEPAGE_URL = primaryUrl
+  const homepageUrl = (await primaryUrl.bestUsable(effects).const())?.replace(
+    /\/+$/,
+    '',
+  )
+  if (homepageUrl) env.APP_HOMEPAGE_URL = homepageUrl
   if (smtp) {
     Object.assign(env, {
       SMTP_HOST: smtp.host,
@@ -199,8 +201,7 @@ export const main = sdk.setupMain(async ({ effects }) => {
               (
                 await valkeySub.exec(
                   ['valkey-cli', '-p', String(valkeyPort), 'ping'],
-                  {},
-                  20_000,
+                  { timeout: 20_000 },
                 )
               ).stdout
                 .toString()

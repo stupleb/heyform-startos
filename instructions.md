@@ -13,15 +13,15 @@ One web address serves both your HeyForm dashboard, where you build forms and re
 ## Getting set up
 
 1. Run **Create or Reset Account**. Enter your email address and name, then copy the password it shows you.
-2. Open the **Web UI** at its `.local` address and sign in. HeyForm asks you to create your first workspace.
-3. To send forms to people outside your home network, add a public domain to the **Web UI** interface, then run **Set Primary URL** and choose it. Do this before you build forms with images or file-upload fields: their links keep the address they were made with.
+2. Run **Set Primary URL** and choose the address you'll use HeyForm at. To send forms to people outside your home network, add a public domain to the **Web UI** interface first and choose that; otherwise keep your server's `.local` address. Do this before you build forms with images or file-upload fields: their links keep the address they were made with.
+3. Select **Open UI** and sign in. HeyForm asks you to create your first workspace.
 4. Optionally run **Configure SMTP**, so HeyForm can email you new responses and send workspace invitations.
 
 ## Using HeyForm
 
 ### Signing in
 
-Sign in at HeyForm's primary URL, which starts as your server's `.local` address. At any other address of the **Web UI**, HeyForm accepts your password and then shows the login page again. People filling in your forms can use any of its addresses.
+Sign in at HeyForm's primary URL: **Open UI** takes you there. At any other address of the **Web UI**, HeyForm accepts your password and then shows the login page again. If the primary URL stops working, for example because you removed its domain, HeyForm switches to another of its addresses until it's back, and asks you to choose a primary URL again. People filling in your forms can use any of its addresses.
 
 ### Adding people
 

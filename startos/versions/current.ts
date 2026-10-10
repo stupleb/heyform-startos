@@ -1,18 +1,18 @@
 import { IMPOSSIBLE, VersionInfo } from '@start9labs/start-sdk'
 
 export const current = VersionInfo.of({
-  version: '3.0.3:1',
+  version: '3.0.3:2',
   releaseNotes: {
     en_US:
-      'Configure Stripe shows the addresses to enter in Stripe under the fields they go with, and says which Stripe setup it needs.',
+      "Open UI opens HeyForm at its primary URL, the address you sign in at. If that address stops working, HeyForm switches to another of its addresses until it's back.",
     es_ES:
-      'La acción Configurar Stripe muestra las direcciones que hay que introducir en Stripe bajo los campos a los que corresponden, e indica qué configuración de Stripe necesita.',
+      'Abrir UI abre HeyForm en su URL principal, la dirección en la que se inicia sesión. Si esa dirección deja de funcionar, HeyForm pasa a otra de sus direcciones hasta que vuelva.',
     de_DE:
-      'Die Aktion „Stripe konfigurieren“ zeigt die Adressen für Stripe unter den Feldern, zu denen sie gehören, und nennt die nötige Stripe-Einrichtung.',
+      '„UI öffnen“ öffnet HeyForm unter seiner primären URL, der Adresse, unter der Sie sich anmelden. Funktioniert diese Adresse nicht mehr, wechselt HeyForm zu einer seiner anderen Adressen, bis sie wieder verfügbar ist.',
     pl_PL:
-      'Akcja Skonfiguruj Stripe pokazuje adresy do wpisania w Stripe pod polami, których dotyczą, i podaje, jakiej konfiguracji Stripe wymaga.',
+      'Otwórz UI otwiera HeyForm pod jego głównym adresem URL, pod którym się logujesz. Jeśli ten adres przestanie działać, HeyForm przełącza się na inny ze swoich adresów, dopóki nie wróci.',
     fr_FR:
-      "L'action Configurer Stripe affiche les adresses à saisir dans Stripe sous les champs correspondants et indique la configuration Stripe requise.",
+      "Ouvrir UI ouvre HeyForm à son URL principale, l'adresse où vous vous connectez. Si cette adresse cesse de fonctionner, HeyForm passe à une autre de ses adresses jusqu'à son retour.",
   },
   migrations: {
     up: async ({ effects }) => {},
