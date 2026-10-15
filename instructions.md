@@ -27,7 +27,7 @@ Sign in at HeyForm's primary URL: **Open UI** takes you there. At any other addr
 
 - To give someone their own login, run **Create or Reset Account** with their email address and send them the password it shows.
 - To have them work on your forms, use **Invite members** on your workspace's **Members** page in HeyForm. The invitation is an email with a link to join, so it needs SMTP. People without an account can sign up from that link even while sign-ups are disabled.
-- **Enable Sign-ups** lets anyone who can reach HeyForm create an account. HeyForm emails each new account a code to confirm its address, so set up SMTP first.
+- **Enable Sign-ups** lets anyone who can reach HeyForm create an account. Once SMTP is set up, HeyForm also emails each new account a code to confirm its address.
 
 If someone forgets their password, run **Create or Reset Account** with their email address. It gives the account a new password and needs no email setup.
 

@@ -20,7 +20,7 @@ export const toggleSignups = sdk.Action.withoutInput(
       warning: enabled
         ? null
         : i18n(
-            'Anyone who can reach your HeyForm address will be able to create an account until you disable sign-ups again. HeyForm emails each new account a code to confirm its address, so set up SMTP first.',
+            'Anyone who can reach your HeyForm address will be able to create an account until you disable sign-ups again. Once SMTP is set up, HeyForm also emails each new account a code to confirm its address.',
           ),
       allowedStatuses: 'any',
       group: null,
