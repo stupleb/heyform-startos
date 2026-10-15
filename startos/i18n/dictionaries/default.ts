@@ -71,7 +71,7 @@ const dict = {
   'Enable Sign-ups': 67,
   'Sign-ups are enabled: anyone who can reach HeyForm can create an account. Run this action to stop new sign-ups; existing accounts and workspace invite links keep working. HeyForm restarts to apply it.': 68,
   'Sign-ups are disabled: new accounts are made with Create or Reset Account, or by people you invite to a workspace. Run this action to let anyone sign up from the HeyForm login page. HeyForm restarts to apply it.': 69,
-  'Anyone who can reach your HeyForm address will be able to create an account until you disable sign-ups again. HeyForm emails each new account a code to confirm its address, so set up SMTP first.': 70,
+  'Anyone who can reach your HeyForm address will be able to create an account until you disable sign-ups again. Once SMTP is set up, HeyForm also emails each new account a code to confirm its address.': 70,
   'Create your HeyForm account. Public sign-up is off, so this is how the first account is made.': 71,
   'Choose the address HeyForm works at. Signing in only works there, and share links and uploaded files use it.': 72,
   "Redirect URI to put first in Stripe's OAuth settings: ${url}": 73,

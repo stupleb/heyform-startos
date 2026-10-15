@@ -1,18 +1,18 @@
 import { IMPOSSIBLE, VersionInfo } from '@start9labs/start-sdk'
 
 export const current = VersionInfo.of({
-  version: '3.0.3:2',
+  version: '3.0.4:0',
   releaseNotes: {
     en_US:
-      "Open UI opens HeyForm at its primary URL, the address you sign in at. If that address stops working, HeyForm switches to another of its addresses until it's back.",
+      'Updates HeyForm to 3.0.4, where links in forms open in a new tab and several answers can lead to the same question. Without SMTP, people who sign up go straight to their workspace.',
     es_ES:
-      'Abrir UI abre HeyForm en su URL principal, la dirección en la que se inicia sesión. Si esa dirección deja de funcionar, HeyForm pasa a otra de sus direcciones hasta que vuelva.',
+      'Actualiza HeyForm a 3.0.4: los enlaces de los formularios se abren en una pestaña nueva y varias respuestas pueden llevar a la misma pregunta. Sin SMTP, quien se registra entra directamente en su espacio de trabajo.',
     de_DE:
-      '„UI öffnen“ öffnet HeyForm unter seiner primären URL, der Adresse, unter der Sie sich anmelden. Funktioniert diese Adresse nicht mehr, wechselt HeyForm zu einer seiner anderen Adressen, bis sie wieder verfügbar ist.',
+      'Aktualisiert HeyForm auf 3.0.4: Links in Formularen öffnen sich in einem neuen Tab, und mehrere Antworten können zur selben Frage führen. Ohne SMTP gelangen neu Registrierte direkt in ihren Arbeitsbereich.',
     pl_PL:
-      'Otwórz UI otwiera HeyForm pod jego głównym adresem URL, pod którym się logujesz. Jeśli ten adres przestanie działać, HeyForm przełącza się na inny ze swoich adresów, dopóki nie wróci.',
+      'Aktualizuje HeyForm do 3.0.4: linki w formularzach otwierają się w nowej karcie, a kilka odpowiedzi może prowadzić do tego samego pytania. Bez SMTP osoby, które się rejestrują, trafiają od razu do swojego obszaru roboczego.',
     fr_FR:
-      "Ouvrir UI ouvre HeyForm à son URL principale, l'adresse où vous vous connectez. Si cette adresse cesse de fonctionner, HeyForm passe à une autre de ses adresses jusqu'à son retour.",
+      "Met à jour HeyForm vers 3.0.4 : les liens des formulaires s'ouvrent dans un nouvel onglet et plusieurs réponses peuvent mener à la même question. Sans SMTP, les personnes qui s'inscrivent accèdent directement à leur espace de travail.",
   },
   migrations: {
     up: async ({ effects }) => {},

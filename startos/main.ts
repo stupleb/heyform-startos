@@ -104,6 +104,7 @@ export const main = sdk.setupMain(async ({ effects }) => {
     REDIS_PORT: String(valkeyPort),
     TRUST_PROXY: '1',
     APP_DISABLE_REGISTRATION: String(!store.signups),
+    VERIFY_USER_EMAIL: String(smtp !== null),
     ENABLE_GOOGLE_FONTS: String(store.googleFonts),
     NODE_EXTRA_CA_CERTS: rootCaPath,
   }
