@@ -32,7 +32,7 @@
 
 ## Image and Container Runtime
 
-Three unmodified upstream images, each in its own subcontainer, all sharing the service's network namespace.
+Three upstream images, each in its own subcontainer, all sharing the service's network namespace. `mongo` and `valkey` run unmodified. HeyForm's image gets one temporary layer from the root `Dockerfile`, which comes out once upstream ships an image whose stores no longer trust emSign ECC Root CA - G3. The layer upgrades Alpine's `ca-certificates-bundle`, and sets `NODE_OPTIONS=--use-openssl-ca` so that Node uses that system store instead of its compiled-in roots. The build fails if either store still holds G3.
 
 | Subcontainer     | Image                       | Runs                                                                                                   |
 | ---------------- | --------------------------- | ------------------------------------------------------------------------------------------------------ |
@@ -152,7 +152,7 @@ The `valkey` volume is left out. A restored instance comes up with everyone logg
 
 ```yaml
 package_id: heyform
-image: heyform/community-edition
+image: heyform/community-edition # CA store upgraded by Dockerfile
 architectures: [x86_64, aarch64]
 subcontainers: [heyform, mongo, valkey, manage-account]
 volumes:
