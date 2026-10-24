@@ -1,18 +1,14 @@
 import { IMPOSSIBLE, VersionInfo } from '@start9labs/start-sdk'
 
 export const current = VersionInfo.of({
-  version: '3.0.4:1',
+  version: '3.0.4:2',
   releaseNotes: {
-    en_US:
-      'Stops trusting certificates from a compromised certificate authority (eMudhra). Adds Forward Email to the SMTP provider presets.',
+    en_US: 'Includes the October 2026 Node.js security fixes.',
     es_ES:
-      'Deja de confiar en los certificados de una autoridad de certificación comprometida (eMudhra). Añade Forward Email a los proveedores SMTP predefinidos.',
-    de_DE:
-      'Vertraut Zertifikaten einer kompromittierten Zertifizierungsstelle (eMudhra) nicht mehr. Fügt Forward Email zu den vordefinierten SMTP-Anbietern hinzu.',
-    pl_PL:
-      'Przestaje ufać certyfikatom przejętego urzędu certyfikacji (eMudhra). Dodaje Forward Email do predefiniowanych dostawców SMTP.',
-    fr_FR:
-      "Ne fait plus confiance aux certificats d'une autorité de certification compromise (eMudhra). Ajoute Forward Email aux fournisseurs SMTP prédéfinis.",
+      'Incluye las correcciones de seguridad de Node.js de octubre de 2026.',
+    de_DE: 'Enthält die Node.js-Sicherheitskorrekturen vom Oktober 2026.',
+    pl_PL: 'Zawiera poprawki bezpieczeństwa Node.js z października 2026.',
+    fr_FR: "Inclut les correctifs de sécurité Node.js d'octobre 2026.",
   },
   migrations: {
     up: async ({ effects }) => {},
