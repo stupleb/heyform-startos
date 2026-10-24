@@ -44,9 +44,11 @@ docker manifest inspect heyform/community-edition:vX.Y.Z | jq -r '.manifests[].p
      MongoDB the `mongo` image may run (see below).
 3. Set the `IMAGE` build arg of `images.heyform.source.dockerBuild` to
    `heyform/community-edition:vX.Y.Z`. The root `Dockerfile` layers a fixed CA
-   store over it; once the new image's Alpine bundle is `20261020-r0` or later
-   and its Node is 22.23.4, 24.22.1 or 26.12.1 or later, delete the
-   `Dockerfile` and go back to `dockerTag` in the same change.
+   store and Node 22.23.4 over it; the `node:` image it copies from must match
+   the new image's Node major and Alpine release. Once the new image's Alpine
+   bundle is `20261020-r0` or later and its Node is 22.23.4, 24.22.1 or 26.12.1
+   or later, delete the `Dockerfile` and go back to `dockerTag` in the same
+   change.
 4. In `startos/versions/current.ts`, set `version` to `X.Y.Z:0` (no `v`) and
    rewrite the release notes.
 
