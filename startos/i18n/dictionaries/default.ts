@@ -76,6 +76,10 @@ const dict = {
   'Choose the address HeyForm works at. Signing in only works there, and share links and uploaded files use it.': 72,
   "Redirect URI to put first in Stripe's OAuth settings: ${url}": 73,
   'Webhook endpoint to add in Stripe, for payment_intent.succeeded events on connected accounts: ${url}': 74,
+  'Stop Storing Respondent IPs': 75,
+  'Store Respondent IPs': 76,
+  "HeyForm saves each respondent's IP address with their submission and shows it with the response. Run this action to stop saving it; submissions already saved keep theirs. HeyForm restarts to apply it.": 77,
+  "HeyForm doesn't save respondents' IP addresses, only a scrambled form of each one to limit repeat submissions. Run this action to save them with each submission again. HeyForm restarts to apply it.": 78,
 } as const
 
 /**

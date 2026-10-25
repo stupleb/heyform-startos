@@ -67,6 +67,7 @@ One model, `store.json` on the `startos` volume. HeyForm has no configuration fi
 - `sessionKey`, `formEncryptionKey` — generated at install, never rotated. They become `SESSION_KEY` (encrypts login cookies) and `FORM_ENCRYPTION_KEY` (encrypts the tokens of forms being filled in).
 - `primaryUrl` — the address chosen with **Set Primary URL**, empty until then. `APP_HOMEPAGE_URL` is this URL while its hostname is one of the interface's addresses, and otherwise the preferred address: a public domain over HTTPS, else the `.local` address.
 - `signups` → `APP_DISABLE_REGISTRATION` (inverted); `googleFonts` → `ENABLE_GOOGLE_FONTS`. Both default off.
+- `submissionIp` → `DISABLE_SUBMISSION_IP` (inverted). Defaults on, so HeyForm stores respondents' IP addresses as upstream does.
 - `smtp` → `SMTP_HOST`, `SMTP_PORT`, `SMTP_FROM`, `SMTP_USER`, `SMTP_PASSWORD`, `SMTP_SECURE`, and `SMTP_IGNORE_CERT=true`. Upstream passes that last value straight to Node's `rejectUnauthorized`, so `true` is what turns certificate checking on. `VERIFY_USER_EMAIL` is `true` while SMTP is set, so in-app sign-ups confirm their address with an emailed code, and `false` otherwise.
 - `ai` → `OPENAI_BASE_URL`, `OPENAI_API_KEY` (`none` when left empty, since HeyForm refuses an empty key), `OPENAI_GPT_MODEL`.
 - `stripe` → `STRIPE_PUBLISHABLE_KEY`, `STRIPE_SECRET_KEY`, `STRIPE_CONNECT_CLIENT_ID`, and `STRIPE_WEBHOOK_SECRET_KEY` once set.
@@ -105,6 +106,8 @@ Accounts made by the package are created through HeyForm's own user schema and p
 
 **Enable Google Fonts / Disable Google Fonts** — whether form pages load their theme font from Google. Restarts HeyForm.
 
+**Stop Storing Respondent IPs / Store Respondent IPs** — whether HeyForm saves each respondent's IP address with their submission and shows it with the response. Restarts HeyForm. Submissions saved earlier keep their address. With storage off, HeyForm keeps only a keyed hash of each address, for its per-address submission limit.
+
 **Configure AI** (Integrations) — an OpenAI-compatible base URL, optional key and model. Enables **Create with AI** and form translation. Restarts HeyForm. The model must support JSON output (translation asks for `response_format: json_object`).
 
 **Configure Stripe** (Integrations) — keys for Stripe Connect, from a Stripe account set up as a Connect platform with OAuth for Standard accounts (see [Limitations and Differences](#limitations-and-differences)). Its form shows the OAuth redirect URI under Connect Client ID and the webhook URL under Webhook Signing Secret, both built from the current primary URL; they change when the primary URL does. Restarts HeyForm. Each form connects its own Stripe account in the form editor.
@@ -137,7 +140,7 @@ The `valkey` volume is left out. A restored instance comes up with everyone logg
 1. Signing in works at the primary URL only (see [Network Access and Interfaces](#network-access-and-interfaces)). Images and files keep the address HeyForm used when they were uploaded: an earlier primary URL, or the preferred address while the chosen one was gone.
 2. A Raspberry Pi 4 can't run the package: the MongoDB image needs ARMv8.2-A.
 3. Webhooks reach public addresses only. HeyForm itself rejects private, loopback and CGNAT addresses (including Tailscale's) with "Private network URLs are not allowed", so it can't post to other services on this server or the LAN. A `.local` name fails earlier, with "Internal server error": the container can't resolve mDNS names.
-4. Webhooks are self-hosted HeyForm's only integration. The Google Sheets, Slack, Notion and other integrations in HeyForm's help center are part of its hosted service.
+4. Webhooks are the only integration the package offers. HeyForm's Google Sheets integration needs an OAuth client registered with Google, a published consent screen and a public HTTPS primary URL; the package doesn't configure it, so it stays hidden. The Slack, Notion and other integrations in HeyForm's help center are part of its hosted service.
 5. Workspace invitations are sent only by email, and the dashboard shows no invite link to copy, so collaboration needs SMTP. Without SMTP, in-app sign-ups skip the emailed code, so nothing confirms their email addresses.
 6. **Select a template** shows the category list with no templates in it: HeyForm's open-source server returns none, as the gallery belongs to its hosted service. **Import from JSON** on that screen always fails with "Failed to import form. Please check the JSON format.", because the web app calls an import function that the release doesn't contain, and nothing exports a form as JSON. **Duplicate** is the way to reuse a form.
 7. Card payments run on Stripe Connect, and HeyForm links each form's Stripe account only through OAuth for Standard accounts: the account whose keys go into **Configure Stripe** must be a Connect platform with OAuth turned on. Stripe no longer recommends OAuth for new platforms, and a new account may not be offered it. HeyForm's OAuth link names no redirect URI, so Stripe returns to the first one in the platform's list. Linking an account that can't take charges yet fails with "Something went wrong, please try again." Stripe can confirm payments only when the primary URL is a public HTTPS address. Without the webhook, payments complete but submissions don't record a receipt.
@@ -199,6 +202,7 @@ actions:
   - set-primary-url
   - manage-smtp
   - toggle-google-fonts
+  - toggle-submission-ip
   - configure-ai
   - configure-stripe
   - configure-spam-protection

@@ -7,6 +7,7 @@ import { createOrResetAccount } from './createOrResetAccount'
 import { manageSmtp } from './manageSmtp'
 import { toggleGoogleFonts } from './toggleGoogleFonts'
 import { toggleSignups } from './toggleSignups'
+import { toggleSubmissionIp } from './toggleSubmissionIp'
 
 export const actions = sdk.Actions.of()
   .addAction(createOrResetAccount)
@@ -14,6 +15,7 @@ export const actions = sdk.Actions.of()
   .addAction(primaryUrl.action)
   .addAction(manageSmtp)
   .addAction(toggleGoogleFonts)
+  .addAction(toggleSubmissionIp)
   .addAction(configureAi)
   .addAction(configureStripe)
   .addAction(configureSpamProtection)
