@@ -7,6 +7,7 @@ const shape = z.object({
   primaryUrl: z.string().catch(''),
   signups: z.boolean().catch(false),
   googleFonts: z.boolean().catch(false),
+  submissionIp: z.boolean().catch(true),
   smtp: smtpShape,
   ai: z
     .object({ baseUrl: z.string(), apiKey: z.string(), model: z.string() })

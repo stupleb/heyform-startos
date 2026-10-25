@@ -38,6 +38,7 @@ If someone forgets their password, run **Create or Reset Account** with their em
 - **Set Primary URL** — choose the address HeyForm works at and puts in share links.
 - **Configure SMTP** — let HeyForm send email: sign-up codes, invitations, password resets, new-response notifications.
 - **Enable Google Fonts** / **Disable Google Fonts** — show forms in the font their theme names, or in each visitor's own system fonts. While enabled, every visitor's browser loads the font from Google.
+- **Stop Storing Respondent IPs** / **Store Respondent IPs** — whether HeyForm saves each respondent's IP address with their submission. Submissions saved earlier keep theirs.
 - **Configure AI**, **Configure Stripe**, **Configure Spam Protection** — the integrations below.
 
 ### AI form builder
@@ -64,7 +65,7 @@ HeyForm takes card payments through Stripe Connect: your Stripe account acts as 
 
 - A Raspberry Pi 4 cannot run HeyForm: its database needs a newer processor.
 - Webhooks can only reach public internet addresses. HeyForm refuses to send them to addresses on your local network, including other services on this server.
-- Webhooks are the only integration self-hosted HeyForm offers. The Google Sheets, Slack and other integrations in HeyForm's help center belong to its hosted service.
+- Webhooks are the only integration available here. Google Sheets needs a Google setup the package doesn't provide, and the Slack and other integrations in HeyForm's help center belong to its hosted service.
 - **Select a template** has no templates in it, and **Import from JSON** always fails: self-hosted HeyForm has neither. To reuse a form, use **Duplicate**.
 - Every new form starts with a photo from Unsplash on its first question. Your respondents' browsers load it from Unsplash until you remove or replace it.
 - The **Unsplash** tab in the image picker always shows "No results found": it needs an Unsplash developer key, which this package doesn't use. Upload your own image instead.

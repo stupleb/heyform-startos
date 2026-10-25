@@ -30,6 +30,7 @@ export const main = sdk.setupMain(async ({ effects }) => {
       formEncryptionKey: s.formEncryptionKey,
       signups: s.signups,
       googleFonts: s.googleFonts,
+      submissionIp: s.submissionIp,
       smtp: s.smtp,
       ai: s.ai,
       stripe: s.stripe,
@@ -106,6 +107,7 @@ export const main = sdk.setupMain(async ({ effects }) => {
     APP_DISABLE_REGISTRATION: String(!store.signups),
     VERIFY_USER_EMAIL: String(smtp !== null),
     ENABLE_GOOGLE_FONTS: String(store.googleFonts),
+    DISABLE_SUBMISSION_IP: String(!store.submissionIp),
     NODE_EXTRA_CA_CERTS: rootCaPath,
   }
   const homepageUrl = (await primaryUrl.bestUsable(effects).const())?.replace(

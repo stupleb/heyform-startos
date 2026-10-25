@@ -15,7 +15,7 @@ export const manifest = setupManifest({
     heyform: {
       source: {
         dockerBuild: {
-          buildArgs: { IMAGE: 'heyform/community-edition:v3.0.4' },
+          buildArgs: { IMAGE: 'heyform/community-edition:v3.0.5' },
         },
       },
       arch: ['x86_64', 'aarch64'],

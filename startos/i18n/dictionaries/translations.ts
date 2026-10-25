@@ -77,6 +77,10 @@ export default {
     72: 'Elige la dirección en la que funciona HeyForm. Solo se puede iniciar sesión allí, y los enlaces para compartir y los archivos subidos la usan.',
     73: 'URI de redirección que hay que poner en primer lugar en los ajustes de OAuth de Stripe: ${url}',
     74: 'Endpoint de webhook que hay que añadir en Stripe, para los eventos payment_intent.succeeded de las cuentas conectadas: ${url}',
+    75: 'Dejar de guardar las IP de quienes responden',
+    76: 'Guardar las IP de quienes responden',
+    77: 'HeyForm guarda la dirección IP de cada persona que responde junto con su envío y la muestra con la respuesta. Ejecuta esta acción para dejar de guardarla; los envíos ya guardados conservan la suya. HeyForm se reinicia para aplicarlo.',
+    78: 'HeyForm no guarda las direcciones IP de quienes responden, solo una forma cifrada de cada una para limitar los envíos repetidos. Ejecuta esta acción para volver a guardarlas con cada envío. HeyForm se reinicia para aplicarlo.',
   },
   de_DE: {
     0: 'Weboberfläche',
@@ -154,6 +158,10 @@ export default {
     72: 'Wählen Sie die Adresse, unter der HeyForm arbeitet. Anmelden funktioniert nur dort, und Freigabelinks sowie hochgeladene Dateien verwenden sie.',
     73: 'Weiterleitungs-URI, die in den OAuth-Einstellungen von Stripe an erster Stelle stehen muss: ${url}',
     74: 'Webhook-Endpunkt für Stripe, für payment_intent.succeeded-Ereignisse bei verbundenen Konten: ${url}',
+    75: 'IP-Adressen der Antwortenden nicht mehr speichern',
+    76: 'IP-Adressen der Antwortenden speichern',
+    77: 'HeyForm speichert die IP-Adresse jeder antwortenden Person mit ihrer Einsendung und zeigt sie bei der Antwort an. Führen Sie diese Aktion aus, um sie nicht mehr zu speichern; bereits gespeicherte Einsendungen behalten ihre. HeyForm startet neu, um dies anzuwenden.',
+    78: 'HeyForm speichert die IP-Adressen der Antwortenden nicht, nur eine verschlüsselte Form jeder Adresse, um wiederholte Einsendungen zu begrenzen. Führen Sie diese Aktion aus, um sie wieder mit jeder Einsendung zu speichern. HeyForm startet neu, um dies anzuwenden.',
   },
   pl_PL: {
     0: 'Interfejs webowy',
@@ -231,6 +239,10 @@ export default {
     72: 'Wybierz adres, pod którym działa HeyForm. Logowanie działa tylko tam, a linki do udostępniania i przesłane pliki z niego korzystają.',
     73: 'URI przekierowania, który musi być pierwszy w ustawieniach OAuth w Stripe: ${url}',
     74: 'Punkt końcowy webhooka do dodania w Stripe, dla zdarzeń payment_intent.succeeded na połączonych kontach: ${url}',
+    75: 'Przestań zapisywać adresy IP respondentów',
+    76: 'Zapisuj adresy IP respondentów',
+    77: 'HeyForm zapisuje adres IP każdego respondenta wraz z jego zgłoszeniem i pokazuje go przy odpowiedzi. Uruchom tę akcję, aby przestać go zapisywać; już zapisane zgłoszenia zachowują swój. HeyForm uruchomi się ponownie, aby to zastosować.',
+    78: 'HeyForm nie zapisuje adresów IP respondentów, tylko zaszyfrowaną postać każdego z nich, aby ograniczać powtórne zgłoszenia. Uruchom tę akcję, aby znów zapisywać je z każdym zgłoszeniem. HeyForm uruchomi się ponownie, aby to zastosować.',
   },
   fr_FR: {
     0: 'Interface web',
@@ -308,5 +320,9 @@ export default {
     72: "Choisissez l'adresse à laquelle HeyForm fonctionne. La connexion ne fonctionne qu'à cette adresse, et les liens de partage et les fichiers envoyés l'utilisent.",
     73: 'URI de redirection à placer en premier dans les paramètres OAuth de Stripe : ${url}',
     74: 'Point de terminaison webhook à ajouter dans Stripe, pour les événements payment_intent.succeeded des comptes connectés : ${url}',
+    75: 'Ne plus enregistrer les IP des répondants',
+    76: 'Enregistrer les IP des répondants',
+    77: "HeyForm enregistre l'adresse IP de chaque répondant avec sa réponse et l'affiche avec celle-ci. Exécutez cette action pour ne plus l'enregistrer ; les réponses déjà enregistrées conservent la leur. HeyForm redémarre pour l'appliquer.",
+    78: "HeyForm n'enregistre pas les adresses IP des répondants, seulement une forme chiffrée de chacune pour limiter les envois répétés. Exécutez cette action pour les enregistrer à nouveau avec chaque réponse. HeyForm redémarre pour l'appliquer.",
   },
 } satisfies Record<string, LangDict>
