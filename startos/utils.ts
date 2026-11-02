@@ -21,8 +21,8 @@ const accountScript = `
 const r = require('module').createRequire('${serverDir}/package.json')
 r('reflect-metadata')
 const mongoose = r('mongoose')
-const { UserSchema } = r('./dist/src/model/user.model')
-const { passwordHash } = r('./dist/src/utils/crypto')
+const { UserSchema } = r('./dist/model/user.model')
+const { passwordHash } = r('./dist/utils/crypto')
 ;(async () => {
   const { HF_EMAIL: email, HF_NAME: name, HF_PASSWORD: password } = process.env
   await mongoose.connect(process.env.MONGO_URI)
