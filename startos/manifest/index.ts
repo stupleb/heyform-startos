@@ -13,11 +13,7 @@ export const manifest = setupManifest({
   volumes: ['startos', 'uploads', 'db', 'valkey'],
   images: {
     heyform: {
-      source: {
-        dockerBuild: {
-          buildArgs: { IMAGE: 'heyform/community-edition:v3.0.5' },
-        },
-      },
+      source: { dockerTag: 'heyform/community-edition:v3.0.6' },
       arch: ['x86_64', 'aarch64'],
     },
     // MongoDB 5.0 and later need ARMv8.2-A, so aarch64 excludes the Raspberry Pi 4.
