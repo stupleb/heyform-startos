@@ -70,7 +70,7 @@ One model, `store.json` on the `startos` volume. HeyForm has no configuration fi
 - `submissionIp` → `DISABLE_SUBMISSION_IP` (inverted). Defaults on, so HeyForm stores respondents' IP addresses as upstream does.
 - `smtp` → `SMTP_HOST`, `SMTP_PORT`, `SMTP_FROM`, `SMTP_USER`, `SMTP_PASSWORD`, `SMTP_SECURE`, and `SMTP_IGNORE_CERT=true`. Upstream passes that last value straight to Node's `rejectUnauthorized`, so `true` is what turns certificate checking on. `VERIFY_USER_EMAIL` is `true` while SMTP is set, so in-app sign-ups confirm their address with an emailed code, and `false` otherwise.
 - `ai` → `OPENAI_BASE_URL`, `OPENAI_API_KEY` (`none` when left empty, since HeyForm refuses an empty key), `OPENAI_GPT_MODEL`.
-- `stripe` → `STRIPE_PUBLISHABLE_KEY`, `STRIPE_SECRET_KEY`, `STRIPE_CONNECT_CLIENT_ID`, and `STRIPE_WEBHOOK_SECRET_KEY` once set.
+- `stripe` → `STRIPE_PUBLISHABLE_KEY`, `STRIPE_SECRET_KEY`, `STRIPE_CONNECT_CLIENT_ID`, and `STRIPE_CONNECT_SECRET_KEY` once set.
 - `recaptcha` → `GOOGLE_RECAPTCHA_KEY`, `GOOGLE_RECAPTCHA_SECRET`; `akismetKey` → `AKISMET_KEY`.
 - `accountCreated` — set by the first successful **Create or Reset Account**; it only decides whether the first-account task is shown.
 
@@ -189,7 +189,7 @@ startos_managed_env_vars:
   - STRIPE_PUBLISHABLE_KEY
   - STRIPE_SECRET_KEY
   - STRIPE_CONNECT_CLIENT_ID
-  - STRIPE_WEBHOOK_SECRET_KEY
+  - STRIPE_CONNECT_SECRET_KEY
   - GOOGLE_RECAPTCHA_KEY
   - GOOGLE_RECAPTCHA_SECRET
   - AKISMET_KEY

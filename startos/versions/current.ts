@@ -1,18 +1,18 @@
 import { IMPOSSIBLE, VersionInfo } from '@start9labs/start-sdk'
 
 export const current = VersionInfo.of({
-  version: '3.0.6:0',
+  version: '3.0.7:0',
   releaseNotes: {
     en_US:
-      'Updates HeyForm to 3.0.6: respondents can submit forms that include a file upload, and form notifications gain reply-to and subject options.',
+      'Updates HeyForm to 3.0.7: forms can take card payments through Stripe, choice options can be limited to a number of responses, responses can be archived, and respondents can request deletion of their response.',
     es_ES:
-      'Actualiza HeyForm a 3.0.6: quien responde puede enviar formularios que incluyen la subida de un archivo, y las notificaciones del formulario incorporan opciones de dirección de respuesta y de asunto.',
+      'Actualiza HeyForm a 3.0.7: los formularios pueden cobrar con tarjeta a través de Stripe, las opciones de elección pueden limitarse a un número de respuestas, las respuestas pueden archivarse y quienes responden pueden pedir que se borre su respuesta.',
     de_DE:
-      'Aktualisiert HeyForm auf 3.0.6: Antwortende können Formulare mit einem Datei-Upload absenden, und Formularbenachrichtigungen erhalten Optionen für Antwortadresse und Betreff.',
+      'Aktualisiert HeyForm auf 3.0.7: Formulare können Kartenzahlungen über Stripe annehmen, Auswahloptionen lassen sich auf eine Anzahl von Antworten begrenzen, Antworten können archiviert werden, und Antwortende können die Löschung ihrer Antwort beantragen.',
     pl_PL:
-      'Aktualizuje HeyForm do 3.0.6: respondenci mogą wysyłać formularze z przesyłanym plikiem, a powiadomienia formularza zyskują opcje adresu do odpowiedzi i tematu.',
+      'Aktualizuje HeyForm do 3.0.7: formularze mogą przyjmować płatności kartą przez Stripe, opcje wyboru można ograniczyć do liczby odpowiedzi, odpowiedzi można archiwizować, a respondenci mogą poprosić o usunięcie swojej odpowiedzi.',
     fr_FR:
-      "Met à jour HeyForm vers 3.0.6 : les répondants peuvent envoyer des formulaires comportant un fichier joint, et les notifications du formulaire gagnent des options d'adresse de réponse et d'objet.",
+      'Met à jour HeyForm vers 3.0.7 : les formulaires peuvent encaisser des paiements par carte via Stripe, les options de choix peuvent être limitées à un nombre de réponses, les réponses peuvent être archivées et les répondants peuvent demander la suppression de leur réponse.',
   },
   migrations: {
     up: async ({ effects }) => {},
