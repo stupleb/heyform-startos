@@ -142,7 +142,7 @@ export const main = sdk.setupMain(async ({ effects }) => {
       STRIPE_CONNECT_CLIENT_ID: store.stripe.connectClientId,
     })
     if (store.stripe.webhookSecret) {
-      env.STRIPE_WEBHOOK_SECRET_KEY = store.stripe.webhookSecret
+      env.STRIPE_CONNECT_SECRET_KEY = store.stripe.webhookSecret
     }
   }
   if (store.recaptcha) {
