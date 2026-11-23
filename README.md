@@ -34,12 +34,12 @@
 
 Three unmodified upstream images, each in its own subcontainer, all sharing the service's network namespace.
 
-| Subcontainer     | Image                       | Runs                                                                                                   |
-| ---------------- | --------------------------- | ------------------------------------------------------------------------------------------------------ |
-| `heyform`        | `heyform/community-edition` | The Node.js server: dashboard, public form pages, GraphQL API and uploaded files, through its entrypoint |
-| `mongo`          | `mongo`                     | `mongod`, listening on `127.0.0.1:27017` only, cache capped at 0.25 GB                                   |
+| Subcontainer     | Image                       | Runs                                                                                                                       |
+| ---------------- | --------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `heyform`        | `heyform/community-edition` | The Node.js server: dashboard, public form pages, GraphQL, REST and MCP APIs and uploaded files, through its entrypoint    |
+| `mongo`          | `mongo`                     | `mongod`, listening on `127.0.0.1:27017` only, cache capped at 0.25 GB                                                     |
 | `valkey`         | `valkey/valkey`             | `valkey-server`, listening on `127.0.0.1:6379` only, append-only file on; its tini entrypoint runs as the container's init |
-| `manage-account` | `heyform/community-edition` | Temporary, only while **Create or Reset Account** runs                                                   |
+| `manage-account` | `heyform/community-edition` | Temporary, only while **Create or Reset Account** runs                                                                     |
 
 Architectures: x86_64 and aarch64. The `mongo` image's aarch64 build needs an ARMv8.2-A processor, which rules out the Raspberry Pi 4.
 
@@ -49,12 +49,12 @@ The `heyform` subcontainer also gets the StartOS root CA at `/app/startos-root-c
 
 Four volumes. HeyForm keeps no files of its own outside them.
 
-| Volume    | Mount point                                    | Contents                                                                       |
-| --------- | ---------------------------------------------- | ------------------------------------------------------------------------------ |
-| `startos` | (not mounted)                                  | `store.json`: generated secrets and every StartOS-side setting                 |
+| Volume    | Mount point                                      | Contents                                                                     |
+| --------- | ------------------------------------------------ | ---------------------------------------------------------------------------- |
+| `startos` | (not mounted)                                    | `store.json`: generated secrets and every StartOS-side setting               |
 | `uploads` | `/app/packages/server/static/upload` (`heyform`) | Files uploaded by form builders and respondents, served at `/static/upload/` |
-| `db`      | `/data/db` (`mongo`)                           | The MongoDB data directory; HeyForm uses the `heyform` database                |
-| `valkey`  | `/data` (`valkey`)                             | Valkey's append-only file: login sessions, rate-limit counters, queued jobs    |
+| `db`      | `/data/db` (`mongo`)                             | The MongoDB data directory; HeyForm uses the `heyform` database              |
+| `valkey`  | `/data` (`valkey`)                               | Valkey's append-only file: login sessions, rate-limit counters, queued jobs  |
 
 The `mongo` and `valkey` entrypoints chown their data directories to their own users on every start.
 
@@ -84,7 +84,7 @@ None.
 
 ## Network Access and Interfaces
 
-One interface, `ui` (type `ui`), on port 9157 over HTTP; StartOS adds TLS and is asked for 9157 as the HTTPS port as well, so the HTTPS addresses keep the same port through a reinstall or a restore. It serves the dashboard, the public form pages (`/form/<id>`), the GraphQL API (`/graphql`), uploads (`/static/upload/`) and `/health/ready`.
+One interface, `ui` (type `ui`), on port 9157 over HTTP; StartOS adds TLS and is asked for 9157 as the HTTPS port as well, so the HTTPS addresses keep the same port through a reinstall or a restore. It serves the dashboard, the public form pages (`/form/<id>`), the GraphQL API (`/graphql`), the REST API (`/api/v1`) and MCP server (`/mcp`), both behind API keys each user creates in account settings, uploads (`/static/upload/`) and `/health/ready`.
 
 Signing in works at one address only, the primary URL. HeyForm's session cookies carry `Domain=<primary URL host>; Secure`, so a browser drops them on every other address and signing in there loops back to the login page. Share links and upload links are built from the same URL. Filling in a form needs no login, so respondents can use any of the interface's addresses. The **Set Primary URL** list offers only the interface's HTTPS addresses and onion addresses, since a `Secure` cookie can't be set over plain HTTP outside Tor Browser. **Open UI** opens the address in `APP_HOMEPAGE_URL`.
 
