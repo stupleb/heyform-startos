@@ -1,18 +1,18 @@
 import { IMPOSSIBLE, VersionInfo } from '@start9labs/start-sdk'
 
 export const current = VersionInfo.of({
-  version: '3.0.7:0',
+  version: '3.0.8:0',
   releaseNotes: {
     en_US:
-      'Updates HeyForm to 3.0.7: forms can take card payments through Stripe, choice options can be limited to a number of responses, responses can be archived, and respondents can request deletion of their response.',
+      'Updates HeyForm to 3.0.8: a REST API and an MCP server, reached with API keys each user creates in their account settings; workspaces can have several owners; forms can use choice matrix fields; and a cleared number field stays empty.',
     es_ES:
-      'Actualiza HeyForm a 3.0.7: los formularios pueden cobrar con tarjeta a través de Stripe, las opciones de elección pueden limitarse a un número de respuestas, las respuestas pueden archivarse y quienes responden pueden pedir que se borre su respuesta.',
+      'Actualiza HeyForm a 3.0.8: una API REST y un servidor MCP, a los que se accede con claves de API que cada usuario crea en la configuración de su cuenta; los espacios de trabajo pueden tener varios propietarios; los formularios pueden usar campos de matriz de opciones; y un campo numérico vaciado se queda vacío.',
     de_DE:
-      'Aktualisiert HeyForm auf 3.0.7: Formulare können Kartenzahlungen über Stripe annehmen, Auswahloptionen lassen sich auf eine Anzahl von Antworten begrenzen, Antworten können archiviert werden, und Antwortende können die Löschung ihrer Antwort beantragen.',
+      'Aktualisiert HeyForm auf 3.0.8: eine REST-API und ein MCP-Server, erreichbar mit API-Schlüsseln, die jeder Nutzer in seinen Kontoeinstellungen erstellt; Arbeitsbereiche können mehrere Eigentümer haben; Formulare können Auswahlmatrix-Felder verwenden; und ein geleertes Zahlenfeld bleibt leer.',
     pl_PL:
-      'Aktualizuje HeyForm do 3.0.7: formularze mogą przyjmować płatności kartą przez Stripe, opcje wyboru można ograniczyć do liczby odpowiedzi, odpowiedzi można archiwizować, a respondenci mogą poprosić o usunięcie swojej odpowiedzi.',
+      'Aktualizuje HeyForm do 3.0.8: REST API i serwer MCP, dostępne przez klucze API, które każdy użytkownik tworzy w ustawieniach konta; przestrzenie robocze mogą mieć kilku właścicieli; formularze mogą używać pól macierzy wyboru; a wyczyszczone pole liczbowe pozostaje puste.',
     fr_FR:
-      'Met à jour HeyForm vers 3.0.7 : les formulaires peuvent encaisser des paiements par carte via Stripe, les options de choix peuvent être limitées à un nombre de réponses, les réponses peuvent être archivées et les répondants peuvent demander la suppression de leur réponse.',
+      "Met à jour HeyForm vers 3.0.8 : une API REST et un serveur MCP, accessibles avec des clés d'API que chaque utilisateur crée dans les paramètres de son compte ; les espaces de travail peuvent avoir plusieurs propriétaires ; les formulaires peuvent utiliser des champs de matrice de choix ; et un champ numérique vidé reste vide.",
   },
   migrations: {
     up: async ({ effects }) => {},
